@@ -4,6 +4,7 @@ def open_file(filename):  # type_string -> List[str]
     f.close()
     return input_data
 
+
 EX_dataraw = open_file("Ex_grid.txt")
 EY_dataraw = open_file("Ey_grid.txt")
 
