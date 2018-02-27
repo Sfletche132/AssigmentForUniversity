@@ -1,23 +1,25 @@
-def open_file(filename):  # type_string -> List[str]
+
+
+def open_file(filename):  # Opens file and reads it, returning a list of the lines and closes the file
     f = open(filename, "r")
     input_data = f.readlines()
     f.close()
     return input_data
 
 
+# calling the open file function
 EX_dataraw = open_file("Ex_grid.txt")
 EY_dataraw = open_file("Ey_grid.txt")
 
 
-def strip_data(inputlist):
-    columnlist = []
-    for k in range(len(inputlist)):
-        for i in range(len(inputlist[k].split())):
-            columnlist.append([])
-            columnlist[i].append(float(inputlist[k].split()[i]))
-    return columnlist
+def get_columns(inputlist):  # opens the list of lines, splits spaces, adds them to a list, outputs a list of line lists
+    columns_list = []
+    for line in inputlist:
+        columns_list.append([float(x) for x in line.split()])
+    return columns_list
 
 
-EX_datalist = strip_data(EX_dataraw[1:])
-print(EX_datalist[0][60])
-print(EX_dataraw[61].split()[0])
+EX_datalist = get_columns(EX_dataraw[1:])
+print(EX_datalist)
+column1 = [x[0] for x in EX_datalist]
+print(column1)
