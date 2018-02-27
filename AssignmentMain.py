@@ -20,6 +20,6 @@ def get_columns(inputlist):  # opens the list of lines, splits spaces, adds them
 
 
 EX_datalist = get_columns(EX_dataraw[1:])
-print(EX_datalist)
+EY_datalist = get_columns(EY_dataraw[1:])
 column1 = [x[0] for x in EX_datalist]
 print(column1)
