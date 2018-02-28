@@ -27,19 +27,19 @@ print(len(EX_datalist[0]))
 
 
 def find_e_strength(Ex_list, Ey_list):  # inputs two lists of lines and outputs the resulting e field strength
-    matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float))
+    matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float))  # dealing with nan values and converting to numpy array
     matrix_ey = np.nan_to_num(np.array(Ey_list, dtype=float))
     field_strength = np.sqrt(((matrix_ex**2) + (matrix_ey**2)))
     return field_strength
 
 
-np.seterr(divide='ignore', invalid='ignore')
+np.seterr(divide='ignore', invalid='ignore')  # To stop divide by zero errors
 
 
 def find_e_angle(Ex_list, Ey_list):
-    matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float))
+    matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float)) # dealing with nan values and converting to numpy array
     matrix_ey = np.nan_to_num(np.array(Ey_list, dtype=float))
-    angle = np.arctan(np.divide( matrix_ey,matrix_ex))
+    angle = np.arctan(np.divide(matrix_ey, matrix_ex, out=np.zeros_like(matrix_ey),where=matrix_ex!=0))
     return angle
 
 
