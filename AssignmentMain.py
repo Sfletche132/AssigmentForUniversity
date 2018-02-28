@@ -25,6 +25,7 @@ EX_datalist = get_lines(EX_dataraw[1:])
 EY_datalist = get_lines(EY_dataraw[1:])
 print(len(EX_datalist[0]))
 
+
 def find_e_strength(Ex_list, Ey_list):  # inputs two lists of lines and outputs the resulting e field strength
     matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float))
     matrix_ey = np.nan_to_num(np.array(Ey_list, dtype=float))
@@ -50,11 +51,10 @@ nx, ny = 101, 101
 x = np.linspace(-2, 2, nx)
 y = np.linspace(-2, 2, ny)
 X, Y = np.meshgrid(x, y)
+
 plt.figure(1)
 plt.subplot(111)
 plt.streamplot(x, y, np.array(EX_datalist), np.array(EY_datalist), color="b", linewidth=1, cmap=plt.cm.inferno,density=2, arrowstyle='->', arrowsize=1.5)
-
-print(e_field_angle)
 plt.figure(2)
 plt.subplot(111)
 plt.imshow(e_field_strength,cmap='Blues', interpolation='none')
