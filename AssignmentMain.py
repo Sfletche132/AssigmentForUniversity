@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def open_file(filename):  # Opens file and reads it, returning a list of the lines and closes the file
@@ -22,22 +23,22 @@ def get_lines(inputlist):  # opens the list of lines, splits spaces, adds them t
 
 EX_datalist = get_lines(EX_dataraw[1:])
 EY_datalist = get_lines(EY_dataraw[1:])
-print(EX_datalist[0])
 
 
-def find_e_strength(Ex_list, Ey_list):
-    result = []
-    column_ex = []
-    column_ey = []
-    for x in range(0,len(Ex_list[0])):
-        for k, n in zip(Ex_list, Ey_list):
-            column_ex.append(k[x])
-            column_ey.append(n[x])
-            print(column_ex)
-            result.append([np.sqrt(a ** 2 * b ** 2) for a, b in zip(column_ex, column_ey)])
-    return result
+print(EX_datalist[60])
+print(EY_datalist[60])
+
+
+def find_e_strength(Ex_list, Ey_list):  # inputs two lists of lines and outputs the resulting e field strength
+    matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float))
+    matrix_ey = np.nan_to_num(np.array(Ey_list, dtype=float))
+    field_strength = np.sqrt(((matrix_ex**2) + (matrix_ey**2)))
+    return field_strength
 
 
 e_field_strength = find_e_strength(EX_datalist, EY_datalist)
 
 print(e_field_strength)
+plt.imshow(e_field_strength,cmap='Blues', interpolation='none')
+plt.colorbar()
+plt.show()
