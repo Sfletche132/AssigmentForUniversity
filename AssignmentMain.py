@@ -1,5 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def open_file(filename):  # Opens file and reads it, returning a list of the lines and closes the file
@@ -29,7 +29,7 @@ print(len(EX_datalist[0]))
 def find_e_strength(Ex_list, Ey_list):  # inputs two lists of lines and outputs the resulting e field strength
     matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float))  # dealing with nan values and converting to numpy array
     matrix_ey = np.nan_to_num(np.array(Ey_list, dtype=float))
-    field_strength = np.sqrt(((matrix_ex**2) + (matrix_ey**2)))
+    field_strength = np.sqrt(((matrix_ex ** 2) + (matrix_ey ** 2)))
     return field_strength
 
 
@@ -37,26 +37,26 @@ np.seterr(divide='ignore', invalid='ignore')  # To stop divide by zero errors
 
 
 def find_e_angle(Ex_list, Ey_list):
-    matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float)) # dealing with nan values and converting to numpy array
+    matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float))  # dealing with nan values and converting to numpy array
     matrix_ey = np.nan_to_num(np.array(Ey_list, dtype=float))
-    angle = np.arctan(np.divide(matrix_ey, matrix_ex, out=np.zeros_like(matrix_ey),where=matrix_ex!=0))
+    angle = np.arctan(np.divide(matrix_ey, matrix_ex, out=np.zeros_like(matrix_ey), where=matrix_ex != 0))
     return angle
 
 
 e_field_strength = find_e_strength(EX_datalist, EY_datalist)
 e_field_angle = find_e_angle(EX_datalist, EY_datalist)
 
-
 nx, ny = 101, 101
 x = np.linspace(-2, 2, nx)
 y = np.linspace(-2, 2, ny)
 X, Y = np.meshgrid(x, y)
-
 plt.figure(1)
 plt.subplot(111)
-plt.streamplot(x, y, np.array(EX_datalist), np.array(EY_datalist), color="b", linewidth=1, cmap=plt.cm.inferno,density=2, arrowstyle='->', arrowsize=1.5)
+color = 2 * np.log(np.hypot(np.array(EX_datalist), np.array(EY_datalist)))
+plt.streamplot(x, y, np.array(EX_datalist), np.array(EY_datalist), linewidth=1, color=color, cmap="inferno", density=6,
+               arrowstyle='->', arrowsize=1.5)
 plt.figure(2)
 plt.subplot(111)
-plt.imshow(e_field_strength,cmap='Blues', interpolation='none')
+plt.imshow(e_field_strength, cmap='spring', interpolation='none')
 plt.colorbar()
 plt.show()
