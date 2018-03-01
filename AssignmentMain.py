@@ -46,17 +46,3 @@ def find_e_angle(Ex_list, Ey_list):
 e_field_strength = find_e_strength(EX_datalist, EY_datalist)
 e_field_angle = find_e_angle(EX_datalist, EY_datalist)
 
-nx, ny = 101, 101
-x = np.linspace(-2, 2, nx)
-y = np.linspace(-2, 2, ny)
-X, Y = np.meshgrid(x, y)
-plt.figure(1)
-plt.subplot(111)
-color = 2 * np.log(np.hypot(np.array(EX_datalist), np.array(EY_datalist)))
-plt.streamplot(x, y, np.array(EX_datalist), np.array(EY_datalist), linewidth=1, color=color, cmap="inferno", density=6,
-               arrowstyle='->', arrowsize=1.5)
-plt.figure(2)
-plt.subplot(111)
-plt.imshow(e_field_strength, cmap='spring', interpolation='none')
-plt.colorbar()
-plt.show()
