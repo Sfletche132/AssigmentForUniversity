@@ -28,8 +28,8 @@ print(EX_datalist)
 
 
 def find_e_strength(Ex_list, Ey_list):  # inputs two lists of lines and outputs the resulting e field strength
-    matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float))  # dealing with nan values and converting to numpy array
-    matrix_ey = np.nan_to_num(np.array(Ey_list, dtype=float))
+    matrix_ex = np.array(Ex_list, dtype=float)  # converting to numpy array
+    matrix_ey = np.array(Ey_list, dtype=float)
     field_strength = np.sqrt(np.square(matrix_ex) + np.square(matrix_ey))
     return field_strength
 
@@ -38,8 +38,8 @@ np.seterr(divide='ignore', invalid='ignore')  # To stop divide by zero errors
 
 
 def find_e_angle(Ex_list, Ey_list):
-    matrix_ex = np.nan_to_num(np.array(Ex_list, dtype=float))  # dealing with nan values and converting to numpy array
-    matrix_ey = np.nan_to_num(np.array(Ey_list, dtype=float))
+    matrix_ex = np.array(Ex_list, dtype=float)  # converting to numpy array
+    matrix_ey = np.array(Ey_list, dtype=float)
     angle = np.arctan(np.divide(matrix_ey, matrix_ex, out=np.zeros_like(matrix_ey), where=matrix_ex != 0))
     return angle
 
@@ -59,12 +59,9 @@ def interp_efield(desiredx, inputlist):  # type_ float , list -> list
     return result
 
 
-efieldyvalues = interp_efield(0.5, EY_datalist)
+efieldyvalues = interp_efield(0.5, e_field_strength)
 
 print(efieldyvalues)
-# Don't really understand why have to limit between 0 - 5 metres
-# when the input data only exists within 0 - 5 metres ,
-# so a limit is not really needed
 #plt.xlim((0, 5))
 x_values = np.arange(0, 5, (5 / 101))
 plt.semilogx(x_values, efieldyvalues)
