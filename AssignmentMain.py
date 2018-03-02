@@ -3,7 +3,6 @@ import numpy as np
 import math as math
 
 
-
 def open_file(filename):  # Opens file and reads it, returning a list of the lines and closes the file
     f = open(filename, "r")
     input_data = f.readlines()
@@ -19,13 +18,13 @@ EY_dataraw = open_file("Ey_grid.txt")
 def get_lines(inputlist):  # opens the list of lines, splits spaces, adds them to a list, outputs a list of line lists
     lines_list = []
     for line in inputlist:
-        lines_list.append([float(x) for x in line.split()])
+        lines_list.append([x for x in line.split()])
     return lines_list
 
 
 EX_datalist = get_lines(EX_dataraw[1:])
 EY_datalist = get_lines(EY_dataraw[1:])
-
+print(EX_datalist)
 
 
 def find_e_strength(Ex_list, Ey_list):  # inputs two lists of lines and outputs the resulting e field strength
@@ -55,8 +54,8 @@ def interp_efield(desiredx, inputlist):  # type_ float , list -> list
     rounded_index = int(math.floor(desired_index))
     result = []
     for line in inputlist:
-        percentage = (line[rounded_index + 1] - line[rounded_index]) * abs(desired_index - rounded_index)
-        result.append(float(percentage + line[rounded_index]))
+        percentage = (float(line[rounded_index + 1]) - float(line[rounded_index])) * abs(desired_index - rounded_index)
+        result.append(float(percentage) + float(line[rounded_index]))
     return result
 
 
@@ -66,7 +65,7 @@ print(efieldyvalues)
 # Don't really understand why have to limit between 0 - 5 metres
 # when the input data only exists within 0 - 5 metres ,
 # so a limit is not really needed
-# plt.xlim((0, 5))
+#plt.xlim((0, 5))
 x_values = np.arange(0, 5, (5 / 101))
 plt.semilogx(x_values, efieldyvalues)
 plt.show()
