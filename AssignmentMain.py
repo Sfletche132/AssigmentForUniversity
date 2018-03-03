@@ -62,7 +62,6 @@ def interp_efield(desiredx, inputlist):  # type_ float , list -> list
 efieldyvalues = interp_efield(0.5, e_field_strength)
 
 print(efieldyvalues)
-#plt.xlim((0, 5))
 x_values = np.arange(0, 5, (5 / 101))
 plt.semilogx(x_values, efieldyvalues)
 plt.show()
