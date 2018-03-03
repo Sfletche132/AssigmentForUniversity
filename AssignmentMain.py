@@ -24,7 +24,6 @@ def get_lines(inputlist):  # opens the list of lines, splits spaces, adds them t
 
 EX_datalist = get_lines(EX_dataraw[1:])
 EY_datalist = get_lines(EY_dataraw[1:])
-print(EX_datalist)
 
 
 def find_e_strength(Ex_list, Ey_list):  # inputs two lists of lines and outputs the resulting e field strength
@@ -60,8 +59,14 @@ def interp_efield(desiredx, inputlist):  # type_ float , list -> list
 
 
 efieldyvalues = interp_efield(0.5, e_field_strength)
-
-print(efieldyvalues)
 x_values = np.arange(0, 5, (5 / 101))
 plt.semilogx(x_values, efieldyvalues)
 plt.show()
+
+
+def save_file(filename,array,header,format):
+    np.savetxt(filename,array,fmt=format,header=header)
+
+
+save_file("Deg_grid.txt", e_field_angle, "E field angle in uniform X Y grid", "%1.2f")
+save_file("Etot_grid.txt", e_field_strength, "E field strength in uniform X Y grid", "%1.5e")
