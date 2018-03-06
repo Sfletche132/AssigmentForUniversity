@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math as math
 from matplotlib.ticker import AutoMinorLocator
-from matplotlib.ticker import LogLocator
 
 
 def open_file(filename):  # Opens file and reads it, returning a list of the lines and closes the file
@@ -62,18 +61,16 @@ def interp_efield(desiredx, inputlist):  # type_ float , list -> list
 
 efieldyvalues = interp_efield(0.5, e_field_strength)
 x_values = np.arange(0, 5, (5 / 101))
-plt.semilogx(x_values, efieldyvalues, 'r-*', label='Electric field strength at y = 0.5m')
-plt.xlim(0, 5)
+plt.plot(x_values, efieldyvalues, 'r-*', label='Electric field strength at y = 0.5m')
+plt.xscale('log')
 plt.xlabel("Distance (m)", fontsize=15)
 plt.ylabel("Electric field strength (V/m) ", fontsize=15)
 plt.legend(numpoints=1, loc='upper center', bbox_to_anchor=(0.32, 0.95), fancybox=True, shadow=True, ncol=5)
-plt.tick_params(axis="y", which="major", labelsize=10, color="b", width=1, length=10, labelcolor="r")
-ml = AutoMinorLocator(5)
-plt.axes().yaxis.set_minor_locator(ml)
-plt.axes().xaxis.set_minor_locator(LogLocator(base=10))
-plt.axes().yaxis.set_tick_params(which='minor', right='off', width=1, size=3)
-plt.axes().xaxis.set_tick_params(which='minor', right='off', width=1, size=3)
+plt.tick_params(axis="both", which="major", labelsize=15, color="b", width=1, length=5, labelcolor="black")
+plt.axes().yaxis.set_minor_locator(AutoMinorLocator(5))
+plt.axes().yaxis.set_tick_params(which='minor', right='off', width=0.7, size=2)
 plt.grid()
+plt.tight_layout()
 plt.show()
 
 
