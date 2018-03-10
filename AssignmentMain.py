@@ -75,9 +75,15 @@ def interp_efield(desired_y, inputlist):
     param inputlist = The electric field strength list input
     returns the row that the desired y corresponds to, which has been interpolated
     """
+    # finding the percentage of the file at which the desired y value occurs
     percent_of_file = desired_y / 5.0
+    # the index at which the desired y is then found
     desired_index = 101 * percent_of_file
+    # Then the lower bound of this index is found, in case it is between 2 indexes
     rounded_index = int(math.floor(desired_index))
+    # Following line gets the two indexes either side of the desired value, subtracts them and
+    # multiplies it by the percentage difference between the floor value and the actual desired index
+    # The lower bound + value between the two indexes is outputted
     percentage = (inputlist[rounded_index + 1] - inputlist[rounded_index]) * abs(desired_index - rounded_index)
     return percentage + inputlist[rounded_index]
 
