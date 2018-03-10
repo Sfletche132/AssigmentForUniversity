@@ -3,6 +3,7 @@ import math as math
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import AutoMinorLocator
+from matplotlib.ticker import LogLocator
 
 
 def open_file(filename):  # Opens file and reads it, returning a list of the lines and closes the file
@@ -49,7 +50,7 @@ e_field_angle = find_e_angle(EX_datalist, EY_datalist)
 
 
 def interp_efield(desired_y, inputlist):
-    # inputs a desired y between 0 - 5 m , the inputted array is then interpolated so any y value can be found
+    # inputs a desired y between 0 - 5 m , the inputted list is then interpolated so any y value can be found
     percent_of_file = desired_y / 5.0
     desired_index = 101 * percent_of_file
     rounded_index = int(math.floor(desired_index))
@@ -59,15 +60,19 @@ def interp_efield(desired_y, inputlist):
 
 efieldyvalues = interp_efield(0.5, e_field_strength)
 x_values = np.arange(0, 5, (5 / 101))  # X values are generated between 0 - 5 m to limit the plot range
-plt.plot(x_values, efieldyvalues, 'r-*', label='Electric field strength at y = 0.5m')
-plt.xscale('log')  # setting x axis to logarithmic scale
-plt.xlabel("Distance (m)", fontsize=15)
-plt.ylabel("Electric field strength (V/m) ", fontsize=15)
-plt.legend(numpoints=1, loc='upper center', bbox_to_anchor=(0.32, 0.95), fancybox=True, shadow=True, ncol=5)
-plt.tick_params(axis="both", which="major", labelsize=15, color="b", width=1, length=5, labelcolor="black")
-plt.axes().yaxis.set_minor_locator(AutoMinorLocator(5))
-plt.axes().yaxis.set_tick_params(which='minor', right='off', width=0.7, size=2)
-plt.grid()
+plt.figure()
+ax1 = plt.subplot(1, 1, 1)
+ax1.plot(x_values, efieldyvalues, 'r-*', label='Electric field strength at y = 0.5m')
+ax1.set_xscale('log')  # setting x axis to logarithmic scale
+ax1.set_xlabel("Distance (m)", fontsize=15)
+ax1.set_ylabel("Electric field strength (V/m) ", fontsize=15)
+ax1.legend(numpoints=1, loc='upper center', bbox_to_anchor=(0.32, 0.95), fancybox=True, shadow=True, ncol=5)
+ax1.tick_params(axis="both", which="major", labelsize=15, color="b", width=1, length=5, labelcolor="black")
+ax1.yaxis.set_minor_locator(AutoMinorLocator(5))
+ax1.xaxis.set_minor_locator(LogLocator(10,subs="auto", numticks=10))
+ax1.yaxis.set_tick_params(which='minor', right='false', width=0.7, size=2)
+ax1.xaxis.set_tick_params(which='minor', right='false', width=0.7, size=2)
+ax1.grid()
 plt.tight_layout()
 plt.show()
 
