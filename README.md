@@ -1,4 +1,4 @@
-# AssigmentForUniversity
+# Assignment for Computational Physics Project
 
 A distribution of charged particles in a plane generate an electric field    . In order to derive
 the total electric field for a given position, the contribution of each particle needs to be
