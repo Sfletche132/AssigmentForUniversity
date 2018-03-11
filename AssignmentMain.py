@@ -28,6 +28,7 @@ def get_lines(inputlist):
     """
     lines_list = []
     for line in inputlist:
+        # uses a list comprehension to split the line strings and then appends them into a nested list
         lines_list.append([x for x in line.split()])
     return lines_list
 
@@ -106,7 +107,6 @@ ax1.xaxis.set_tick_params(which='minor', right='false', width=0.7, size=2)
 # Showing plot
 ax1.grid()
 plt.tight_layout()
-plt.show()
 
 
 def save_file(filename, array, header, format):
@@ -121,5 +121,7 @@ def save_file(filename, array, header, format):
 
 
 # saving both files with headers and converting angles into degrees
-save_file("Deg_grid.txt", np.degrees(e_field_angle), "E field angle in uniform X Y grid", "%1.2f")
-save_file("Etot_grid.txt", e_field_strength, "E field strength in uniform X Y grid", "%1.5e")
+save_file("Deg_grid.txt", np.degrees(e_field_angle), "E field angle in uniform X Y grid", "%-6.2f")
+save_file("Etot_grid.txt", e_field_strength, "E field strength in uniform X Y grid", "%-12.5e")
+print("Output files saved")
+plt.show()
