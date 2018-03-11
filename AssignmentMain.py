@@ -91,8 +91,10 @@ def interp_efield(desired_y, inputlist):
 efieldyvalues = interp_efield(0.5, e_field_strength)
 x_values = np.arange(0, 5, (5 / 101))  # X values are generated between 0 - 5 m to limit the plot range
 plt.figure()  # initialising figure
-ax1 = plt.axes(xscale='log', yscale='linear')  # Assigning figure subplot region
+ax1 = plt.axes(xscale='symlog', yscale='linear')  # Assigning figure subplot region
 ax1.plot(x_values, efieldyvalues, 'r-*', label='Electric field strength at y = 0.5m')
+ax1.set_xticks([0,1,5])
+ax1.set_xlim(0,5)
 locatorscalar = AutoMinorLocator(5)
 loglocator = LogLocator(base=10, numticks=10,subs="auto")
 ax1.xaxis.set_minor_formatter(NullFormatter())
@@ -102,7 +104,7 @@ ax1.yaxis.set_minor_locator(locatorscalar)
 # Adding labels and Legend
 ax1.set_xlabel("Distance (m)", fontsize=15)
 ax1.set_ylabel("Electric field strength (V/m) ", fontsize=15)
-ax1.legend(numpoints=1, loc='upper center', bbox_to_anchor=(0.72, 1.1), fancybox=True, shadow=True, ncol=5)
+ax1.legend(numpoints=1, loc='upper center', bbox_to_anchor=(0.70, 1.1), fancybox=True, shadow=True, ncol=5)
 # Customising Ticks
 ax1.tick_params(axis="both", which="major", labelsize=15, color="b", width=1, length=5, labelcolor="black")
 ax1.tick_params(axis='both', which='minor', right='false', width=0.7, size=2, length=2, bottom='on')
