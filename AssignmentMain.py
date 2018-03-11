@@ -2,6 +2,7 @@ import math as math
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import AutoMinorLocator,LogLocator, NullFormatter
+import matplotlib
 
 
 def open_file(filename):  # Opens file and reads it, returning a list of the lines and closes the file
@@ -108,7 +109,7 @@ ax1.legend(numpoints=1, loc='upper center', bbox_to_anchor=(0.70, 1.1), fancybox
 # Customising Ticks
 ax1.tick_params(axis="both", which="major", labelsize=15, color="b", width=1, length=5, labelcolor="black")
 ax1.tick_params(axis='both', which='minor', right='false', width=0.7, size=2, length=2, bottom='on')
-
+ax1.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
 # Setting grid
 ax1.grid(True, which='major', ls='--')
 
