@@ -47,7 +47,7 @@ def find_e_strength(Ex_list, Ey_list):
     matrix_ex = np.array(Ex_list, dtype=float)  # converting to numpy array
     matrix_ey = np.array(Ey_list, dtype=float)
     #  Performing the electric field strength calculation
-    field_strength = np.sqrt(np.square(matrix_ex) + np.square(matrix_ey)) #
+    field_strength = np.sqrt(np.square(matrix_ex) + np.square(matrix_ey))
     return field_strength
 
 
