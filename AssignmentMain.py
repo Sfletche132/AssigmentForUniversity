@@ -1,8 +1,7 @@
 import math as math
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.ticker import AutoMinorLocator
-from matplotlib.ticker import LogLocator
+from matplotlib.ticker import AutoMinorLocator,LogLocator, NullFormatter
 
 
 def open_file(filename):  # Opens file and reads it, returning a list of the lines and closes the file
@@ -92,21 +91,26 @@ def interp_efield(desired_y, inputlist):
 efieldyvalues = interp_efield(0.5, e_field_strength)
 x_values = np.arange(0, 5, (5 / 101))  # X values are generated between 0 - 5 m to limit the plot range
 plt.figure()  # initialising figure
-ax1 = plt.subplot(1, 1, 1)  # Assigning figure subplot region
+ax1 = plt.axes(xscale='log', yscale='linear')  # Assigning figure subplot region
 ax1.plot(x_values, efieldyvalues, 'r-*', label='Electric field strength at y = 0.5m')
-ax1.set_xscale('log')  # setting x axis to logarithmic scale
+ax1.set_xticks([1,2,3,4,5])
+ax1.set_xlim((1,5))
+locatorscalar = AutoMinorLocator(5)
+loglocator = LogLocator(base=10, numticks=10, subs="auto")
+ax1.xaxis.set_minor_formatter(NullFormatter())
+ax1.yaxis.set_minor_formatter(NullFormatter())
+ax1.xaxis.set_minor_locator(loglocator)
+ax1.yaxis.set_minor_locator(locatorscalar)
+# Adding labels and Legend
 ax1.set_xlabel("Distance (m)", fontsize=15)
 ax1.set_ylabel("Electric field strength (V/m) ", fontsize=15)
-ax1.legend(numpoints=1, loc='upper center', bbox_to_anchor=(0.32, 0.95), fancybox=True, shadow=True, ncol=5)
+ax1.legend(numpoints=1, loc='upper center', bbox_to_anchor=(0.72, 1.1), fancybox=True, shadow=True, ncol=5)
 # Customising Ticks
 ax1.tick_params(axis="both", which="major", labelsize=15, color="b", width=1, length=5, labelcolor="black")
-ax1.yaxis.set_minor_locator(AutoMinorLocator(5))
-ax1.xaxis.set_minor_locator(LogLocator(10,subs="auto", numticks=10))
-ax1.yaxis.set_tick_params(which='minor', right='false', width=0.7, size=2)
-ax1.xaxis.set_tick_params(which='minor', right='false', width=0.7, size=2)
-# Showing plot
-ax1.grid()
-plt.tight_layout()
+ax1.tick_params(axis='both', which='minor', right='false', width=0.7, size=2, length=2)
+
+# Setting grid
+ax1.grid(True, which='major', ls='--')
 
 
 def save_file(filename, array, header, format):
@@ -124,4 +128,6 @@ def save_file(filename, array, header, format):
 save_file("Deg_grid.txt", np.degrees(e_field_angle), "E field angle in uniform X Y grid", "%-6.2f")
 save_file("Etot_grid.txt", e_field_strength, "E field strength in uniform X Y grid", "%-12.5e")
 print("Output files saved")
+# Showing plot
+plt.tight_layout()
 plt.show()
