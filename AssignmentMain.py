@@ -1,8 +1,27 @@
 import math as math
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.ticker import AutoMinorLocator,LogLocator, NullFormatter
+from matplotlib import pyplot as plt
 import matplotlib
+from matplotlib.ticker import LogLocator, NullFormatter, AutoMinorLocator, ScalarFormatter
+
+params = {
+    'text.latex.preamble': ['\\usepackage{gensymb}'],
+    'image.origin': 'lower',
+    'image.interpolation': 'nearest',
+    'image.cmap': 'gray',
+    'axes.grid': False,
+    'savefig.dpi': 150,  # to adjust notebook inline plot size
+    'axes.labelsize': 8, # fontsize for x and y labels (was 10)
+    'axes.titlesize': 8,
+    'font.size': 8, # was 10
+    'legend.fontsize': 6, # was 10
+    'xtick.labelsize': 8,
+    'ytick.labelsize': 8,
+    'text.usetex': True,
+    'figure.figsize': [5.0, 5.0],
+    'font.family': 'serif',
+}
+matplotlib.rcParams.update(params)
 
 
 def open_file(filename):  # Opens file and reads it, returning a list of the lines and closes the file
@@ -105,11 +124,11 @@ ax1.yaxis.set_minor_locator(locatorscalar)
 # Adding labels and Legend
 ax1.set_xlabel("Distance (m)", fontsize=15)
 ax1.set_ylabel("Electric field strength (V/m) ", fontsize=15)
-ax1.legend(numpoints=1, loc='upper center', bbox_to_anchor=(0.70, 1.1), fancybox=True, shadow=True, ncol=5)
+ax1.legend(numpoints=1, loc='upper center', bbox_to_anchor=(0.70, 1.15), fancybox=True, shadow=True, ncol=5)
 # Customising Ticks
 ax1.tick_params(axis="both", which="major", labelsize=15, color="b", width=1, length=5, labelcolor="black")
 ax1.tick_params(axis='both', which='minor', right='false', width=0.7, size=2, length=2, bottom='on')
-ax1.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
+ax1.get_xaxis().set_major_formatter(ScalarFormatter())
 # Setting grid
 ax1.grid(True, which='major', ls='--')
 
